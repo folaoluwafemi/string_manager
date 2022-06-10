@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:string_manager/src/string_manager_service.dart';
+import 'package:string_manager/string_manager.dart';
 
 class StringResource {
   final Map<String, String> _resources = {};

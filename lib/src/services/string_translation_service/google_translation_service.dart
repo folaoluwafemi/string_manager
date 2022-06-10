@@ -1,23 +1,23 @@
 import 'dart:developer' as dev;
 
 import 'package:string_manager/src/data/models/string_resource.dart';
-import 'package:string_manager/src/services/string_translation_service/string_translation_interface.dart';
 import 'package:translator/translator.dart';
 
-class GoogleTranslationService implements StringTranslationInterface {
+class GoogleTranslationService {
   final GoogleTranslator translator =
       GoogleTranslator(client: ClientType.siteGT);
 
-  @override
-  translateString(
+  Future<String> translateString(
     String text, {
     required String from,
     required String to,
   }) async {
     try {
-      await _translate(text, from: from, to: to);
+      return await _translate(text, from: from, to: to);
     } catch (e) {
+      dev.log('unable to translate $text', stackTrace: StackTrace.current);
       dev.log('$e');
+      return text;
     }
   }
 
@@ -27,8 +27,7 @@ class GoogleTranslationService implements StringTranslationInterface {
     return translation.text;
   }
 
-  @override
-  Future<List<String>> translateStringResource(
+  Future<StringResource> translateStringResource(
     StringResource resource, {
     required String from,
     required String to,
@@ -41,16 +40,18 @@ class GoogleTranslationService implements StringTranslationInterface {
     }
   }
 
-  Future<List<String>> _translateResource(
+  Future<StringResource> _translateResource(
     StringResource stringResource, {
     required String from,
     required String to,
   }) async {
-    List<String> translatedStrings = [];
-    for (String sourceText in stringResource.resources) {
-      String translatedString = await _translate(sourceText, from: from, to: to);
-      translatedStrings.add(translatedString);
+    Map<String, String> newResource = {};
+    for (MapEntry source in stringResource.map.entries) {
+      String translatedString =
+          await translateString(source.value, from: from, to: to);
+      newResource[source.key] = translatedString;
     }
-    return translatedStrings;
+    StringResource newStringResource = StringResource(resource: newResource);
+    return newStringResource;
   }
 }

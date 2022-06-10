@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:string_manager/src/data/models/string_resource.dart';
-import 'package:string_manager/src/string_manager_service.dart';
+import 'package:string_manager/string_manager.dart';
 
 class HiveStorage {
   late final Box<StringResource> storageBox;
