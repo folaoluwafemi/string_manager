@@ -3,9 +3,12 @@ import 'dart:developer' as dev;
 import 'package:string_manager/src/data/models/string_resource.dart';
 import 'package:translator/translator.dart';
 
-class GoogleTranslationService {
-  final GoogleTranslator translator =
-      GoogleTranslator(client: ClientType.siteGT);
+class TranslationService {
+  final GoogleTranslator translator;
+
+  TranslationService({required this.translator});
+
+
 
   Future<String> translateString(
     String text, {
