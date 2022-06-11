@@ -218,6 +218,29 @@ void main() {
       });
 
       test(
+        'calling the method does not delete the stringManager stringResource if it has been saved before',
+        () async {
+          stringManager.reg(iAmABoy);
+          stringManager.reg(itIsPlenty);
+
+          //save the current values
+          await stringManager.save();
+
+          //change the values so as to check against it's change
+          await stringManager.translate('yo');
+
+          List<String> currentValues =
+              stringManager.stringResource.map.values.toList();
+
+          stringManager.getStrings(language: 'en');
+
+          List<String> newValues =
+              stringManager.stringResource.map.values.toList();
+
+          expect(stringManager.stringResource.map.isNotEmpty, equals(true));
+        },
+      );
+      test(
         'calling the method changes stringManager stringResource if it has been saved before',
         () async {
           stringManager.reg(iAmABoy);

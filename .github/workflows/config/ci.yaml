@@ -1,0 +1,19 @@
+name: string_manager
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          channel: 'stable'
+          sdk: '3.0.0'
+      - id: install
+        name: install dependencies
+        run: flutter pub get
+      - name: test
+        run: flutter test
