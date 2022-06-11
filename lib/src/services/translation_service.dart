@@ -4,11 +4,10 @@ import 'package:string_manager/src/data/models/string_resource.dart';
 import 'package:translator/translator.dart';
 
 class TranslationService {
-  final GoogleTranslator translator;
+  final GoogleTranslator _translator;
 
-  TranslationService({required this.translator});
-
-
+  TranslationService({required GoogleTranslator translator})
+      : _translator = translator;
 
   Future<String> translateString(
     String text, {
@@ -16,6 +15,9 @@ class TranslationService {
     required String to,
   }) async {
     try {
+      if (from == to) {
+        return text;
+      }
       return await _translate(text, from: from, to: to);
     } catch (e) {
       dev.log('unable to translate $text', stackTrace: StackTrace.current);
@@ -26,7 +28,7 @@ class TranslationService {
 
   _translate(String text, {required String from, required String to}) async {
     Translation translation =
-        await translator.translate(text, from: from, to: to);
+        await _translator.translate(text, from: from, to: to);
     return translation.text;
   }
 
@@ -36,10 +38,11 @@ class TranslationService {
     required String to,
   }) async {
     try {
+      assert(resource.map.isNotEmpty, 'map must not be empty');
       return await _translateResource(resource, from: from, to: to);
     } catch (e) {
       dev.log('$e');
-      throw Exception(e);
+      rethrow;
     }
   }
 
