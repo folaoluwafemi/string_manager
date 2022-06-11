@@ -19,8 +19,10 @@ class HiveStorage {
     return stringResource;
   }
 
-  void storeStrings(StringResource resource, {required String languageKey}) {
-    assert(resource.map.isNotEmpty, 'string resource must not have an empty map');
-    storageBox.put(languageKey, resource);
+  Future<void> storeStrings(StringResource resource,
+      {required String languageKey}) async {
+    assert(
+        resource.map.isNotEmpty, 'string resource must not have an empty map');
+    await storageBox.put(languageKey, resource);
   }
 }

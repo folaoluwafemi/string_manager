@@ -7,17 +7,18 @@ import 'package:string_manager/src/services/translation_service.dart';
 import 'package:translator/translator.dart';
 
 abstract class _StringManager {
-  final String language;
+  String _language;
   StringResource _stringResource;
   final HiveStorage _storage;
   final TranslationService _translator;
   bool _initialized = false;
 
   _StringManager(
-      {required this.language,
+      {required String language,
       HiveInterface? hive,
       GoogleTranslator? googleTranslator})
       : _stringResource = StringResource(),
+        _language = language,
         _storage = HiveStorage(hive: hive ?? Hive),
         _translator = TranslationService(
           translator: googleTranslator ?? GoogleTranslator(),
@@ -26,6 +27,11 @@ abstract class _StringManager {
   Future<void> initialize() async {
     await _storage.initialize();
     _initialized = true;
+  }
+
+  String get language {
+    assert(_initialized, 'stringManager must be initialized');
+    return _language;
   }
 
   StringResource get stringResource {
@@ -41,13 +47,14 @@ abstract class _StringManager {
     return text;
   }
 
-  void save() {
+  Future<void> save() async {
     assert(_initialized, 'stringManager must be initialized');
 
-    _storage.storeStrings(_stringResource, languageKey: language);
+    await _storage.storeStrings(_stringResource, languageKey: _language);
   }
 
-  void getStrings() {
+  void getStrings({String? language}) {
+    language ??= _language;
     assert(_initialized, 'stringManager must be initialized');
 
     StringResource? resource = _storage.getStrings(language);
@@ -61,9 +68,11 @@ abstract class _StringManager {
     assert(_initialized, 'stringManager must be initialized');
     StringResource resource = await _translator.translateStringResource(
       _stringResource,
-      from: language,
+      from: _language,
       to: to,
     );
+
+    _language = to;
 
     _stringResource = resource;
   }
