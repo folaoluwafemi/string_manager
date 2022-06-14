@@ -41,6 +41,11 @@ class HiveMock extends Mock implements HiveInterface {
   }
 
   @override
+  bool isAdapterRegistered(int typeId) {
+    return true;
+   }
+
+  @override
   Future<Box<E>> openBox<E>(
     String name, {
     HiveCipher? encryptionCipher,
