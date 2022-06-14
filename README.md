@@ -14,31 +14,33 @@ and the Flutter guide for
 a package for managing app strings in dart/flutter particularly internationalization
 
 ## Features
- - keep your project strings DRY
- - Translate all your project strings easily on the fly with one method call
 
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- keep your project strings DRY
+- Translate all your project strings easily on the fly with one method call
 
 ### Getting started
-#add this to your pubspec.yaml file
+
+add this to your pubspec.yaml file
+
  ```yaml
 dependencies:
   string_manager:
 ```
 
-TODO: List prerequisites and provide or point to information on how to start using the package.
-
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples to `/example` folder.
-
 ```dart
+void main() {
+  StringManager stringManager = StringManger(
+    language: 'en', //your default language
+  );
 
-const like = 'sample';
+  stringManager.reg('hello world'); //register your project strings
+
+}
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to contribute to the
-package, how to file issues, what response they can expect from the package authors, and more.
+If you face any errors kindly create an issue, and if you wish to add a feature I will be more than
+happy to merge your PR
