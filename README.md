@@ -11,7 +11,7 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
 
-a package for managing app strings in dart/flutter particularly internationalization
+a pure dart package for managing app strings in dart particularly internationalization
 
 ## Features
 
@@ -33,14 +33,15 @@ dependencies:
 import 'package:string_manager/string_manager.dart';
 
 
-void main() {
+void main() async {
   StringManager stringManager = StringManger(
     language: 'en', //your default language
   );
+  await stringManager.initialize(); //you must initialize stringManager first
 
   stringManager.reg('hello world'); //register your project strings
   
-  stringManager.translate('yo'); //translate your strings to any language (Yoruba in this case) using google translate
+  await stringManager.translate('yo'); //translate your strings to any language (Yoruba in this case) using google translate
   
   print(stringManger.resources); //output: ["Mo ki O Ile Aiye"]
 }
@@ -57,4 +58,4 @@ note that the `stringManger.reg('yourString')` method returns your registered st
 If you face any errors kindly create an issue, and if you wish to add a feature I will be more than
 happy to merge your PR
 
-# enjoy your internationalization redefined.
+# Enjoy your internationalization redefined. 😃

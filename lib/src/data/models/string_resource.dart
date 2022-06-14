@@ -29,7 +29,9 @@ class StringResource {
 class StringResourceAdapter extends TypeAdapter<StringResource> {
   @override
   StringResource read(BinaryReader reader) {
-    return StringResource(resource: reader.read(StringManager.storageTypeId));
+    Map<String, String> map = reader.readMap().map<String, String>(
+        (key, value) => MapEntry(key.toString(), value.toString()));
+    return StringResource(resource: map);
   }
 
   @override

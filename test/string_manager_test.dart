@@ -8,7 +8,6 @@ import 'src/data/mocks/hive_mock.dart';
 void main() {
   group('setup tests', () {
     late StringManagerTest stringManager;
-
     setUp(() {
       stringManager = StringManagerTest(
         language: 'en',

@@ -11,7 +11,9 @@ class HiveStorage {
 
   Future<void> initialize() async {
     _hive.init('string_path');
-    _hive.registerAdapter(StringResourceAdapter());
+    if (!_hive.isAdapterRegistered(StringManager.storageTypeId)) {
+      _hive.registerAdapter<StringResource>(StringResourceAdapter());
+    }
     storageBox = await _hive.openBox<StringResource>(StringManager.storageKey);
   }
 
