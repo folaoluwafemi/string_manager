@@ -1,6 +1,6 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:string_manager/src/data/models/string_resource.dart';
 import 'package:string_manager/src/services/hive_storage.dart';
+import 'package:test/test.dart';
 
 import '../data/constants/constants.dart';
 import '../data/mocks/hive_mock.dart';

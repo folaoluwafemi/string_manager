@@ -12,12 +12,8 @@ jobs:
         with:
           channel: 'stable'
           sdk: '2.17.0'
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: 'stable'
-          sdk: '3.0.0'
       - id: install
         name: install dependencies
-        run: flutter pub get
+        run: dart pub get
       - name: test
-        run: flutter test
+        run: dart test

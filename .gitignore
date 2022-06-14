@@ -29,6 +29,3 @@ migrate_working_dir/
 .packages
 build/
 
-#project file
-string_path/
-coverage/

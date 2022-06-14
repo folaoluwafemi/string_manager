@@ -1,3 +1,5 @@
+import 'package:test/expect.dart';
+
 Map<String, String> translationMap = {
   iAmABoy: iAmABoyTranslation,
   itIsPlenty: itIsPlentyTranslation,
@@ -11,3 +13,6 @@ const String itIsPlentyTranslation = 'Opor';
 Map<String, String> resourceMap = <String, String>{
   iAmABoy: iAmABoy,
 };
+
+
+final Matcher throwsAssertionError = throwsA(isA<AssertionError>());

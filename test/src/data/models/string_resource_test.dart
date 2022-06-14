@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 import 'package:string_manager/src/data/models/string_resource.dart';
 
 import '../constants/constants.dart';

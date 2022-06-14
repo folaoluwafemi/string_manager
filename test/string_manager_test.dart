@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:string_manager/src/services/string_manager_service.dart';
+import 'package:test/test.dart';
 
 import 'src/data/constants/constants.dart';
 import 'src/data/mocks/google_translation_mock.dart';

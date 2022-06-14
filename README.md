@@ -56,3 +56,5 @@ note that the `stringManger.reg('yourString')` method returns your registered st
 
 If you face any errors kindly create an issue, and if you wish to add a feature I will be more than
 happy to merge your PR
+
+# enjoy your internationalization redefined.
