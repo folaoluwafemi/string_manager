@@ -30,14 +30,26 @@ dependencies:
 ## Usage
 
 ```dart
+import 'package:string_manager/string_manager.dart';
+
+
 void main() {
   StringManager stringManager = StringManger(
     language: 'en', //your default language
   );
 
   stringManager.reg('hello world'); //register your project strings
-
+  
+  stringManager.translate('yo'); //translate your strings to any language (Yoruba in this case) using google translate
+  
+  print(stringManger.resources); //output: ["Mo ki O Ile Aiye"]
 }
+```
+note that the `stringManger.reg('yourString')` method returns your registered string, ie:
+```dart
+    //...
+    print(stringManger.reg('hello world')); //output: hello world
+    //...
 ```
 
 ## Additional information
