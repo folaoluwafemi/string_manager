@@ -31,3 +31,4 @@ build/
 
 #project file
 string_path/
+coverage/
