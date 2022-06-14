@@ -36,6 +36,11 @@ class HiveMock extends Mock implements HiveInterface {
   }
 
   @override
+  Future<void> close() async {
+    dev.log('close called');
+  }
+
+  @override
   Future<Box<E>> openBox<E>(
     String name, {
     HiveCipher? encryptionCipher,

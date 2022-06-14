@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:string_manager/src/data/models/string_resource.dart';
 import 'package:string_manager/src/services/translation_service.dart';
+import 'package:string_manager/string_manager.dart';
 
 import '../data/constants/constants.dart';
 import '../data/mocks/google_translation_mock.dart';

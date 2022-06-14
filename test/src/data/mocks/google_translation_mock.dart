@@ -24,6 +24,7 @@ class GoogleTranslationMock extends Mock implements GoogleTranslator {
       return throw Exception('invalid text');
     }
 
+
     return Future.value(TranslationMock(
       sourceText,
       text,

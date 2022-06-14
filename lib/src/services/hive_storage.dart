@@ -1,6 +1,7 @@
+
 import 'package:hive/hive.dart';
 import 'package:string_manager/src/data/models/string_resource.dart';
-import 'package:string_manager/string_manager.dart';
+import 'package:string_manager/src/services/string_manager_service.dart';
 
 class HiveStorage {
   late final Box<StringResource> storageBox;
@@ -17,6 +18,10 @@ class HiveStorage {
   StringResource? getStrings(String languageKey) {
     StringResource? stringResource = storageBox.get(languageKey);
     return stringResource;
+  }
+
+  Future<void> close() async {
+    await _hive.close();
   }
 
   Future<void> storeStrings(StringResource resource,

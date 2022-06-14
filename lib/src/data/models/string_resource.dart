@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:string_manager/string_manager.dart';
+import 'package:string_manager/src/services/string_manager_service.dart';
 
 class StringResource {
   final Map<String, String> _resources = {};
@@ -15,8 +15,14 @@ class StringResource {
 
   Map<String, String> get map => _resources;
 
-  void add(String resource) {
+  String register(String resource) {
+    String text = '';
+    if (_resources.containsKey(resource)) {
+      text = _resources[resource]!;
+      return text;
+    }
     _resources[resource] = resource;
+    return _resources[resource]!;
   }
 }
 

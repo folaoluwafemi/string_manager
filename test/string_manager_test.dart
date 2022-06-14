@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:string_manager/string_manager.dart';
+import 'package:string_manager/src/services/string_manager_service.dart';
 
 import 'src/data/constants/constants.dart';
 import 'src/data/mocks/google_translation_mock.dart';
@@ -7,10 +7,10 @@ import 'src/data/mocks/hive_mock.dart';
 
 void main() {
   group('setup tests', () {
-    late StringManager stringManager;
+    late StringManagerTest stringManager;
 
     setUp(() {
-      stringManager = StringManager(
+      stringManager = StringManagerTest(
         language: 'en',
         hive: HiveMock(),
         googleTranslator: GoogleTranslationMock(),
@@ -27,10 +27,10 @@ void main() {
   });
 
   group('stringManager.reg() tests', () {
-    late StringManager stringManager;
+    late StringManagerTest stringManager;
 
     setUp(() {
-      stringManager = StringManager(
+      stringManager = StringManagerTest(
         language: 'en',
         hive: HiveMock(),
         googleTranslator: GoogleTranslationMock(),
@@ -77,11 +77,11 @@ void main() {
   });
 
   group('stringManager.translate() tests', () {
-    late StringManager stringManager;
+    late StringManagerTest stringManager;
     group('setup test', () {
-      late StringManager setupStringManger;
+      late StringManagerTest setupStringManger;
       setUp(() async {
-        setupStringManger = StringManager(
+        setupStringManger = StringManagerTest(
           language: 'en',
           googleTranslator: GoogleTranslationMock(),
           hive: HiveMock(),
@@ -108,7 +108,7 @@ void main() {
       });
     });
     setUp(() async {
-      stringManager = StringManager(
+      stringManager = StringManagerTest(
         language: 'en',
         googleTranslator: GoogleTranslationMock(),
         hive: HiveMock(),
@@ -151,9 +151,9 @@ void main() {
 
   group('storage tests', () {
     group('setup tests', () {
-      late StringManager setupStringManager;
+      late StringManagerTest setupStringManager;
       setUp(() {
-        setupStringManager = StringManager(
+        setupStringManager = StringManagerTest(
           language: 'en',
           googleTranslator: GoogleTranslationMock(),
           hive: HiveMock(),
@@ -172,9 +172,9 @@ void main() {
       });
     });
     group('stringManager.save() tests', () {
-      late StringManager stringManager;
+      late StringManagerTest stringManager;
       setUp(() async {
-        stringManager = StringManager(
+        stringManager = StringManagerTest(
           language: 'en',
           googleTranslator: GoogleTranslationMock(),
           hive: HiveMock(),
@@ -195,9 +195,9 @@ void main() {
       });
     });
     group('stringManager.getStrings() tests', () {
-      late StringManager stringManager;
+      late StringManagerTest stringManager;
       setUp(() async {
-        stringManager = StringManager(
+        stringManager = StringManagerTest(
           language: 'en',
           googleTranslator: GoogleTranslationMock(),
           hive: HiveMock(),
@@ -264,6 +264,39 @@ void main() {
               checkListValueEquality(currentValues, newValues), equals(false));
         },
       );
+    });
+  });
+
+  group('close() test', () {
+    test('setup test -- calling ', () {
+      late StringManagerTest setupStringManager;
+      setupStringManager = StringManagerTest(
+        language: 'en',
+        googleTranslator: GoogleTranslationMock(),
+        hive: HiveMock(),
+      );
+      expect(setupStringManager.close, throwsAssertionError);
+    });
+    late StringManagerTest stringManger;
+    setUp(() async {
+      stringManger = StringManagerTest(
+        language: 'en',
+        googleTranslator: GoogleTranslationMock(),
+        hive: HiveMock(),
+      );
+      await stringManger.initialize();
+    });
+
+    test('calling close returns normally', () {
+      expectLater(stringManger.close, returnsNormally);
+    });
+
+    test(
+        'calling another method after close is called results in an assertionError',
+        () async {
+      await stringManger.close();
+
+      expect(() => stringManger.reg('new string'), throwsAssertionError);
     });
   });
 }
