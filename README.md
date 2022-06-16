@@ -32,18 +32,24 @@ dependencies:
 ```dart
 import 'package:string_manager/string_manager.dart';
 
-
 void main() async {
-  StringManager stringManager = StringManger(
-    language: 'en', //your default language
-  );
-  await stringManager.initialize(); //you must initialize stringManager first
+  StringManager stringManager = StringManager(language: 'en');
 
-  stringManager.reg('hello world'); //register your project strings
-  
-  await stringManager.translate('yo'); //translate your strings to any language (Yoruba in this case) using google translate
-  
-  print(stringManger.resources); //output: ["Mo ki O Ile Aiye"]
+  ///you must initialize stringManager first
+  await stringManager.initialize();
+
+  ///register your project strings synchronously
+  stringManager.reg('hello world');
+
+  ///translate your strings to any language (Yoruba in this case) using google translate
+  await stringManager.translate(to: 'yo');
+
+  ///saves your strings using hive
+  await stringManager.save();
+
+  print(stringManager.stringResource.resources); //output: ["Mo ki O Ile Aiye"]
+
+  await stringManager.close();
 }
 ```
 note that the `stringManger.reg('yourString')` method returns your registered string, ie:
